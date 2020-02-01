@@ -1,6 +1,12 @@
 # yactci
 
 [![Build Status](https://jenkins.ucar.land/buildStatus/icon?job=yactci)](https://jenkins.ucar.land/job/yactci/)
+[![Quality Gate Status](https://qube.ucar.land/api/project_badges/measure?project=org.github.java.yactci%3Ayactci-parent&metric=alert_status)](https://qube.ucar.land/dashboard?id=org.github.java.yactci%3Ayactci-parent)
+[![Security Rating](https://qube.ucar.land/api/project_badges/measure?project=org.github.java.yactci%3Ayactci-parent&metric=security_rating)](https://qube.ucar.land/dashboard?id=org.github.java.yactci%3Ayactci-parent)
+
+[![Bugs](https://qube.ucar.land/api/project_badges/measure?project=org.github.java.yactci%3Ayactci-parent&metric=bugs)](https://qube.ucar.land/dashboard?id=org.github.java.yactci%3Ayactci-parent)
+[![Code Smells](https://qube.ucar.land/api/project_badges/measure?project=org.github.java.yactci%3Ayactci-parent&metric=code_smells)](https://qube.ucar.land/dashboard?id=org.github.java.yactci%3Ayactci-parent)
+[![Coverage](https://qube.ucar.land/api/project_badges/measure?project=org.github.java.yactci%3Ayactci-parent&metric=coverage)](https://qube.ucar.land/dashboard?id=org.github.java.yactci%3Ayactci-parent)
 
 
 
