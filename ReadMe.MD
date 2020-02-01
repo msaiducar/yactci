@@ -1,6 +1,6 @@
 # yactci
 
-[![Build Status](https://jenkins.ucar.land/job/yactci/badge/icon)](https://jenkins.ucar.land/job/yactci/)
+[![Build Status](https://jenkins.ucar.land/buildStatus/icon?job=yactci)](https://jenkins.ucar.land/job/yactci/)
 
 
 
