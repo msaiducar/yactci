@@ -2,53 +2,81 @@ package org.github.java.yactci.coreimpl.collect;
 
 import org.github.java.yactci.coreapi.collect.List;
 
+import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class ArrayList<E> implements List<E> {
 
-  public ArrayList() {}
+  private static final int DEFAULT_LIST_SIZE = 16;
+
+  /** Size of the list */
+  private AtomicInteger size;
+
+  private Object[] arr;
+
+  public ArrayList() {
+    this.size = new AtomicInteger();
+    this.arr = new Object[DEFAULT_LIST_SIZE];
+  }
 
   @Override
   public int size() {
-    return 0;
+    return this.size.get();
   }
 
   @Override
   public boolean isEmpty() {
-    return false;
+    return 0 == size();
   }
 
   @Override
   public boolean contains(E element) {
-    return false;
+    return Arrays.stream(this.arr).anyMatch(element::equals);
   }
 
   @Override
   public boolean add(E element) {
-    return false;
+    if (isListFull()) return false;
+
+    this.arr[size.getAndIncrement()] = element;
+    return true;
   }
 
   @Override
   public boolean remove(E element) {
-    return false;
+    throw new UnsupportedOperationException();
   }
 
   @Override
-  public void clear() {}
+  public void clear() {
+    this.size.set(0);
+  }
 
   @Override
   public E get(int index) {
-    return null;
+    if (index >= size()) {
+      throw new IndexOutOfBoundsException();
+    }
+
+    return (E) this.arr[index];
   }
 
   @Override
   public E set(int index, E element) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   @Override
-  public void add(int index, E element) {}
+  public void add(int index, E element) {
+    throw new UnsupportedOperationException();
+  }
 
   @Override
   public E remove(int index) {
-    return null;
+    throw new UnsupportedOperationException();
+  }
+
+  private boolean isListFull() {
+    return Integer.MAX_VALUE == size();
   }
 }
