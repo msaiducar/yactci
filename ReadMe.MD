@@ -15,10 +15,24 @@ and many other things mentioned in the holy book of programmers, Cracking The Co
 
 ## repository structure
 
+repository is a typical java maven multi module project. 
+
+### core-api
+
+core-api module contains only the interfaces for data structures, algorithms any many so other things besides default 
+tests. programmer may implement those test interfaces to increase test coverage for own implementations. 
+
+### core-impl
+
+main implementation module for core api. 
+
 ## pipeline
 
 every commit in every branch triggers a jenkins pipeline for the repository. pipeline executes the command
 *```mvn clean install```* to build project as well as runs the *```junit5```* tests. *```jacoco```* will generate the code coverage 
 report and then the project will be analysed by *```sonarqube```*. 
 
-    
+## contribution
+
+using pull requests, anyone can contribute  
+
