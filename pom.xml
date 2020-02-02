@@ -11,6 +11,8 @@
     <modules>
         <module>core-api</module>
         <module>core-impl</module>
+        <module>solutions</module>
+        <module>solution-api</module>
     </modules>
     <name>yactci-parent</name>
 
@@ -21,6 +23,7 @@
         <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
         <maven.surefire.version>2.22.2</maven.surefire.version>
         <junit.version>5.5.2</junit.version>
+        <assertj.plugin.version>3.14.0</assertj.plugin.version>
         <jacoco.plugin.version>0.8.5</jacoco.plugin.version>
         <!-- Sonar -->
         <sonar.plugin.version>3.7.0.1746</sonar.plugin.version>
@@ -36,6 +39,18 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.plugin.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

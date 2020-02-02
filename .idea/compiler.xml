@@ -6,10 +6,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="yactci-parent" />
         <module name="core-impl" />
+        <module name="solution-api" />
         <module name="core-api" />
+        <module name="solutions" />
+        <module name="yactci-parent" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="core-api" target="1.8" />
+      <module name="core-impl" target="1.8" />
+      <module name="solution-api" target="1.8" />
+      <module name="solutions" target="1.8" />
+      <module name="yactci" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
