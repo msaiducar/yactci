@@ -18,8 +18,8 @@ public class C1Q1_IsUnique implements C1Q1_IsUniqueAlgorithm {
   private static final int UNIQUE_CHAR_COUNT = 256;
 
   @Override
-  @TimeComplexity(average = BigO.BIG_O_N)
-  @SpaceComplexity(average = BigO.BIG_O_C)
+  @TimeComplexity(average = BigO.LINEAR)
+  @SpaceComplexity(average = BigO.CONSTANT)
   public boolean hasAllUniqueChars(String str) {
     Objects.requireNonNull(str);
 

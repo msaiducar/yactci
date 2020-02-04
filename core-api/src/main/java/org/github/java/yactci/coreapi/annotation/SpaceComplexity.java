@@ -1,6 +1,6 @@
 package org.github.java.yactci.coreapi.annotation;
 
-import static org.github.java.yactci.coreapi.annotation.BigO.BIG_O_C;
+import static org.github.java.yactci.coreapi.annotation.BigO.CONSTANT;
 
 /**
  * Space Complexity annotation can be used for indicating the space complexity of a method. It is
@@ -10,9 +10,9 @@ import static org.github.java.yactci.coreapi.annotation.BigO.BIG_O_C;
  */
 public @interface SpaceComplexity {
 
-  BigO best() default BIG_O_C;
+  BigO best() default CONSTANT;
 
-  BigO worst() default BIG_O_C;
+  BigO worst() default CONSTANT;
 
-  BigO average() default BIG_O_C;
+  BigO average() default CONSTANT;
 }

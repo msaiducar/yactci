@@ -32,8 +32,8 @@ public interface C1Q2_CheckPermutationAlgorithm {
    * @param str strings to be shuffled
    * @return shuffled string
    */
-  @TimeComplexity(best = BigO.BIG_O_N, average = BigO.BIG_O_N, worst = BigO.BIG_O_N)
-  @SpaceComplexity(best = BigO.BIG_O_N, average = BigO.BIG_O_N, worst = BigO.BIG_O_N)
+  @TimeComplexity(best = BigO.LINEAR, average = BigO.LINEAR, worst = BigO.LINEAR)
+  @SpaceComplexity(best = BigO.LINEAR, average = BigO.LINEAR, worst = BigO.LINEAR)
   default String shuffleString(String str) {
     Random r = new Random();
     char[] arr = str.toCharArray();

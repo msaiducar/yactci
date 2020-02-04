@@ -13,7 +13,7 @@ public class C1Q2_CheckPermutation implements C1Q2_CheckPermutationAlgorithm {
     Objects.requireNonNull(first);
     Objects.requireNonNull(second);
 
-    if (Math.abs(first.length() - second.length()) > 1) return false;
+    if (first.length() != second.length()) return false;
 
     if (first.equals(second)) return true;
 
@@ -24,6 +24,6 @@ public class C1Q2_CheckPermutation implements C1Q2_CheckPermutationAlgorithm {
     // remove second string chars from usedChars
     second.chars().boxed().forEach(c -> usedChars.put(c, usedChars.getOrDefault(c, 0) - 1));
 
-    return usedChars.values().parallelStream().filter(used -> used < 0 || used > 1).count() < 2;
+    return usedChars.values().parallelStream().noneMatch(used -> used != 0);
   }
 }

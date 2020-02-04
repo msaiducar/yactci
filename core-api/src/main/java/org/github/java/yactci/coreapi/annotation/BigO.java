@@ -12,41 +12,41 @@ public enum BigO {
    *
    * <p>BigO(1) || BigO(c)
    */
-  BIG_O_C,
+  CONSTANT,
   /**
    * logarithmic complexity
    *
    * <p>BigO(logn)
    */
-  BIG_O_LOGN,
+  LOGARITHMIC,
   /**
    * linear complexity
    *
    * <p>BigO(N)
    */
-  BIG_O_N,
+  LINEAR,
   /**
    * linearithmic complexity
    *
    * <p>BigO(nlogn)
    */
-  BIG_O_NLOGN,
+  LINEARITHMIC,
   /**
    * quadratic complexity
    *
    * <p>BigO(n^2)
    */
-  BIG_O_NSQUARE,
+  QUADRATIC,
   /**
    * exponential complexity
    *
    * <p>BigO(2^n)
    */
-  BIG_O_EXP,
+  EXPONENTIAL,
   /**
    * factorial complexity
    *
    * <p>BigO(n!)
    */
-  BIG_O_NFACT
+  FACTORIAL
 }
