@@ -1,5 +1,8 @@
 package org.github.java.yactci.solutions;
 
+import org.github.java.yactci.coreapi.annotation.BigO;
+import org.github.java.yactci.coreapi.annotation.SpaceComplexity;
+import org.github.java.yactci.coreapi.annotation.TimeComplexity;
 import org.github.java.yactci.solutionapi.C1Q2_CheckPermutationAlgorithm;
 
 import java.util.HashMap;
@@ -9,6 +12,8 @@ import java.util.Objects;
 public class C1Q2_CheckPermutation implements C1Q2_CheckPermutationAlgorithm {
 
   @Override
+  @TimeComplexity(average = BigO.LINEAR)
+  @SpaceComplexity(average = BigO.CONSTANT)
   public boolean stringsArePermutation(String first, String second) {
     Objects.requireNonNull(first);
     Objects.requireNonNull(second);
