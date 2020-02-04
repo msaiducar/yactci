@@ -252,7 +252,7 @@ public class ArrayBitMap implements BitwiseOperation {
    * @return true if set, false otherwise
    */
   private synchronized boolean isSet(Index bitIndex) {
-    return ((flags[bitIndex.arrayIndex] & (1 << bitIndex.flagIndex)) != 0);
+    return (((flags[bitIndex.arrayIndex] & 0xFF) & (1 << bitIndex.flagIndex)) != 0);
   }
 
   /**

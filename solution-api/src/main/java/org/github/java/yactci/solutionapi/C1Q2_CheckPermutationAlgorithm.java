@@ -13,6 +13,8 @@ import java.util.Random;
  */
 public interface C1Q2_CheckPermutationAlgorithm {
 
+  Random r = new Random();
+
   /**
    * given strings, checks if one is a permutation of the other
    *
@@ -35,7 +37,7 @@ public interface C1Q2_CheckPermutationAlgorithm {
   @TimeComplexity(best = BigO.LINEAR, average = BigO.LINEAR, worst = BigO.LINEAR)
   @SpaceComplexity(best = BigO.LINEAR, average = BigO.LINEAR, worst = BigO.LINEAR)
   default String shuffleString(String str) {
-    Random r = new Random();
+
     char[] arr = str.toCharArray();
 
     for (int i = arr.length - 1; i > 0; i--) {
