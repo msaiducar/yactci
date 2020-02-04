@@ -1,7 +1,8 @@
 package org.github.java.yactci.solutions;
 
 import org.github.java.yactci.coreapi.annotation.BigO;
-import org.github.java.yactci.coreapi.annotation.Complexity;
+import org.github.java.yactci.coreapi.annotation.SpaceComplexity;
+import org.github.java.yactci.coreapi.annotation.TimeComplexity;
 import org.github.java.yactci.coreimpl.math.ArrayBitMap;
 import org.github.java.yactci.solutionapi.C1Q1_IsUniqueAlgorithm;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
 
 /**
  * Implement an algorithm to determine if a string has all unique characters. What if you cannot use
- * * additional data structures?
+ * additional data structures?
  */
 public class C1Q1_IsUnique implements C1Q1_IsUniqueAlgorithm {
 
@@ -17,7 +18,8 @@ public class C1Q1_IsUnique implements C1Q1_IsUniqueAlgorithm {
   private static final int UNIQUE_CHAR_COUNT = 256;
 
   @Override
-  @Complexity(time = BigO.BIG_O_N, space = BigO.BIG_O_C)
+  @TimeComplexity(average = BigO.BIG_O_N)
+  @SpaceComplexity(average = BigO.BIG_O_C)
   public boolean hasAllUniqueChars(String str) {
     Objects.requireNonNull(str);
 
