@@ -6,6 +6,11 @@ import org.github.java.yactci.coreapi.math.BitwiseOperation;
 import java.util.Comparator;
 import java.util.stream.IntStream;
 
+/**
+ * fixed size byte array based thread safe implementation of {@code BitwiseOperation } interface.
+ *
+ * @author Said Ucar
+ */
 public class ArrayBitMap implements BitwiseOperation {
   private static final int MIN_COUNT = 1;
   private static final int BYTE_TO_BIT = 8;
@@ -178,8 +183,8 @@ public class ArrayBitMap implements BitwiseOperation {
    * <p>ex: if BitwiseOperator initialized for BIT_32, giving index 25 means; 25/8 = 3 and reminder
    * of 1. Then flags[3]'s second bit is the correct location for 25th bit. function will return 3.
    *
-   * @param index
-   * @return
+   * @param index bit index
+   * @return array index
    */
   private int arrayIndex(int index) {
     return index / BYTE_TO_BIT;
@@ -258,8 +263,8 @@ public class ArrayBitMap implements BitwiseOperation {
   /**
    * assigns target bit with the same value of source bit
    *
-   * @param source
-   * @param target
+   * @param source source bit index
+   * @param target target bit index
    */
   private synchronized void copyBit(Index source, Index target) {
     if (isSet(source)) {
