@@ -71,34 +71,6 @@ public interface BitwiseOperation {
   BitwiseOperation shiftRight(int count);
 
   /**
-   * Rotates the bitmap to the left count times. Count can not be negative integer. No shift will be
-   * applied if count is equal to zero. This rotation is circular, therefore there will be no
-   * information lost in bitmap
-   *
-   * <p>ex: let 8 capacity bitmap is equal to {@code 01010101b} after circularShiftLeft(3) applied,
-   * becomes; {@code 10101010b}
-   *
-   * @throws ArithmeticException when negative integer provided
-   * @param count
-   * @return
-   */
-  BitwiseOperation circularShiftLeft(int count);
-
-  /**
-   * Rotates the bitmap to the right count times. Count can not be negative integer. No shift will
-   * be applied if count is equal to zero. This rotation is not circular, therefore there will be *
-   * no information lost in bitmap
-   *
-   * <p>ex: let 8 capacity bitmap is equal to {@code 01010101b} after circularShiftRight(3) applied,
-   * becomes; {@code 10101010b}
-   *
-   * @throws ArithmeticException when negative integer provided
-   * @param count
-   * @return
-   */
-  BitwiseOperation circularShiftRight(int count);
-
-  /**
    * clears all bits in the operator
    *
    * @return

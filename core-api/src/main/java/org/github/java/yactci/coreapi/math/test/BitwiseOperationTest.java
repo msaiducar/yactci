@@ -153,6 +153,33 @@ public interface BitwiseOperationTest<E extends BitwiseOperation> {
     assertThat(operator.isSet(15)).isFalse();
   }
 
+  @Test
+  default void when_shiftRight_expect_rotationToSucceed() {
+    // bitmap = { 0000 0000 1011 0101 }
+    E operator = (E) createBitwiseOperator(16).set(0).set(2).set(4).set(5).set(7).shiftRight(4);
+
+    // bitmap = { 0000 0000 0000 1011 }
+    assertThat(operator.isSet(0)).isTrue();
+    assertThat(operator.isSet(1)).isTrue();
+    assertThat(operator.isSet(2)).isFalse();
+    assertThat(operator.isSet(3)).isTrue();
+
+    assertThat(operator.isSet(4)).isFalse();
+    assertThat(operator.isSet(5)).isFalse();
+    assertThat(operator.isSet(6)).isFalse();
+    assertThat(operator.isSet(7)).isFalse();
+
+    assertThat(operator.isSet(8)).isFalse();
+    assertThat(operator.isSet(9)).isFalse();
+    assertThat(operator.isSet(10)).isFalse();
+    assertThat(operator.isSet(11)).isFalse();
+
+    assertThat(operator.isSet(12)).isFalse();
+    assertThat(operator.isSet(13)).isFalse();
+    assertThat(operator.isSet(14)).isFalse();
+    assertThat(operator.isSet(15)).isFalse();
+  }
+
   /**
    * checks the given operator's all bits are clear
    *
