@@ -33,11 +33,7 @@ public interface C1Q1_IsUniqueAlgorithmTest<E extends C1Q1_IsUniqueAlgorithm> {
 
   @Test
   default void nullInputTest() {
-    assertThrows(
-        NullPointerException.class,
-        () -> {
-          createAlgorithm().hasAllUniqueChars(null);
-        });
+    assertThrows(NullPointerException.class, () -> createAlgorithm().hasAllUniqueChars(null));
   }
 
   @Test

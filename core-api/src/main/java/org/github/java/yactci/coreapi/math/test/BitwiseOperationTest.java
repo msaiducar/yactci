@@ -15,45 +15,34 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public interface BitwiseOperationTest<E extends BitwiseOperation> {
 
-  E createBitwiseOperator(int count);
+  E createBitMap(int count);
 
   @Test
-  default void when_negativeIndexUsed_expect_exception() {
-    assertThrows(
-        IndexOutOfBoundsException.class,
-        () -> {
-          createBitwiseOperator(42).isClear(-1);
-        });
+  default void whenNegativeIndexUsedExpectException() {
+    assertThrows(IndexOutOfBoundsException.class, () -> createBitMap(42).isClear(-1));
   }
 
   @ParameterizedTest
   @ValueSource(ints = {1, 9, 33, 4097, 1000000})
-  default void when_nonExistingIndexUsed_expect_exception(int capacity) {
+  default void whenNonExistingIndexUsedExpectException(int capacity) {
     assertThrows(
-        IndexOutOfBoundsException.class,
-        () -> {
-          createBitwiseOperator(capacity).isClear(capacity + 1);
-        });
+        IndexOutOfBoundsException.class, () -> createBitMap(capacity).isClear(capacity + 1));
 
-    assertThrows(
-        IndexOutOfBoundsException.class,
-        () -> {
-          createBitwiseOperator(capacity).isSet(capacity + 1);
-        });
+    assertThrows(IndexOutOfBoundsException.class, () -> createBitMap(capacity).isSet(capacity + 1));
   }
 
   @ParameterizedTest
   @ValueSource(ints = {1, 9, 33, 4097, 1000000})
-  default void when_operatorInitialized_expect_allBitsClear(int capacity) {
-    E operator = createBitwiseOperator(capacity);
+  default void whenBitMapInitializedExpectAllBitsClear(int capacity) {
+    E operator = createBitMap(capacity);
 
     expectAllBitsClear(operator, capacity);
   }
 
   @ParameterizedTest
   @ValueSource(ints = {1, 9, 33, 4097, 1000000})
-  default void when_allBitsCleared_expect_countsAreCorrect(int capacity) {
-    E operator = createBitwiseOperator(capacity);
+  default void whenAllBitsClearedExpectCountsAreCorrect(int capacity) {
+    E operator = createBitMap(capacity);
     List<Integer> integers = IntStream.range(0, capacity).boxed().collect(Collectors.toList());
 
     Collections.shuffle(integers);
@@ -65,8 +54,8 @@ public interface BitwiseOperationTest<E extends BitwiseOperation> {
 
   @ParameterizedTest
   @ValueSource(ints = {1, 9, 33, 4097, 1000000})
-  default void when_allBitsSet_expect_countsAreCorrect(int capacity) {
-    E operator = createBitwiseOperator(capacity);
+  default void whenAllBitsSetExpectCountsAreCorrect(int capacity) {
+    E operator = createBitMap(capacity);
     List<Integer> integers = IntStream.range(0, capacity).boxed().collect(Collectors.toList());
 
     Collections.shuffle(integers);
@@ -78,8 +67,8 @@ public interface BitwiseOperationTest<E extends BitwiseOperation> {
 
   @ParameterizedTest
   @ValueSource(ints = {1, 9, 33, 4097, 1000000})
-  default void when_toggleBit_expect_bitValueChanged(int capacity) {
-    E operator = createBitwiseOperator(capacity);
+  default void whenBitToggledExpectBitValueChanged(int capacity) {
+    E operator = createBitMap(capacity);
 
     List<Integer> integers = IntStream.range(0, capacity).boxed().collect(Collectors.toList());
     Collections.shuffle(integers);
@@ -90,46 +79,37 @@ public interface BitwiseOperationTest<E extends BitwiseOperation> {
             .filter(integer -> (integer % 2 == 0))
             .collect(Collectors.toList());
 
-    setBit
-        .parallelStream()
-        .forEach(
-            index -> {
-              operator.set(index).toggle(index);
-            });
+    setBit.parallelStream().forEach(index -> operator.set(index).toggle(index));
 
     expectAllBitsClear(operator, capacity);
   }
 
   @ParameterizedTest
   @ValueSource(ints = {1, 9, 33, 4097, 1000000})
-  default void when_allBitsCleared_expect_allBitsClear(int capacity) {
-    E operator = (E) createBitwiseOperator(capacity).clearAllBits();
+  default void whenAllBitsClearedExpectAllBitsClear(int capacity) {
+    E operator = (E) createBitMap(capacity).clearAllBits();
 
     expectAllBitsClear(operator, capacity);
   }
 
   @ParameterizedTest
   @ValueSource(ints = {1, 9, 33, 4097, 1000000})
-  default void when_allBitsSet_expect_allBitsSet(int capacity) {
-    E operator = (E) createBitwiseOperator(capacity).setAllBits();
+  default void whenAllBitsSetExpectAllBitsSet(int capacity) {
+    E operator = (E) createBitMap(capacity).setAllBits();
 
     expectAllBitsSet(operator, capacity);
   }
 
   @ParameterizedTest
   @ValueSource(ints = {1, 9, 33, 4097, 1000000})
-  default void when_negativeShift_expect_exception(int capacity) {
-    assertThrows(
-        ArithmeticException.class,
-        () -> {
-          createBitwiseOperator(capacity).shiftLeft(-1);
-        });
+  default void whenNegativeShiftExpectException(int capacity) {
+    assertThrows(ArithmeticException.class, () -> createBitMap(capacity).shiftLeft(-1));
   }
 
   @Test
-  default void when_shiftLeft_expect_rotationToSucceed() {
-    // bitmap = { 00000000 10110101 }
-    E operator = (E) createBitwiseOperator(16).set(0).set(2).set(4).set(5).set(7).shiftLeft(4);
+  default void whenShiftLeftExpectRotationToSucceed() {
+    // bitmap = { 0000 0000 1011 0101 }
+    E operator = (E) createBitMap(16).set(0).set(2).set(4).set(5).set(7).shiftLeft(4);
 
     // bitmap = { 0000 1011 0101 0000 }
     assertThat(operator.isSet(0)).isFalse();
@@ -154,9 +134,9 @@ public interface BitwiseOperationTest<E extends BitwiseOperation> {
   }
 
   @Test
-  default void when_shiftRight_expect_rotationToSucceed() {
+  default void whenShiftRightExpectRotationToSucceed() {
     // bitmap = { 0000 0000 1011 0101 }
-    E operator = (E) createBitwiseOperator(16).set(0).set(2).set(4).set(5).set(7).shiftRight(4);
+    E operator = (E) createBitMap(16).set(0).set(2).set(4).set(5).set(7).shiftRight(4);
 
     // bitmap = { 0000 0000 0000 1011 }
     assertThat(operator.isSet(0)).isTrue();

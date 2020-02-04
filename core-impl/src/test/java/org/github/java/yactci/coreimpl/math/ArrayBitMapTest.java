@@ -5,7 +5,7 @@ import org.github.java.yactci.coreapi.math.test.BitwiseOperationTest;
 class ArrayBitMapTest implements BitwiseOperationTest<ArrayBitMap> {
 
   @Override
-  public ArrayBitMap createBitwiseOperator(int count) {
+  public ArrayBitMap createBitMap(int count) {
     return ArrayBitMap.of(count);
   }
 }

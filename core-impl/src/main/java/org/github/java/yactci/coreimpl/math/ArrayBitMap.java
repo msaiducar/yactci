@@ -270,23 +270,6 @@ public class ArrayBitMap implements BitwiseOperation {
   }
 
   /**
-   * swaps the given bits
-   *
-   * @param first
-   * @param second
-   */
-  private synchronized void swapBit(Index first, Index second) {
-    boolean swap = isSet(first);
-    copyBit(second, first);
-
-    if (swap) {
-      set(second);
-    } else {
-      clear(second);
-    }
-  }
-
-  /**
    * @param index desired bitmap index
    * @return instance of bit index
    */
