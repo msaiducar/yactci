@@ -72,6 +72,23 @@ public interface C1Q1_IsUniqueAlgorithmTest<E extends C1Q1_IsUniqueAlgorithm> {
     assertThat(createAlgorithm().hasAllUniqueChars(randomOrderedAllUniqueChars())).isTrue();
   }
 
+  @Test
+  default void orderedCharsFailTest() {
+    assertThat(createAlgorithm().hasAllUniqueChars(orderedAllUniqueChars().concat(" "))).isFalse();
+  }
+
+  @Test
+  default void reverseOrderedCharsFailTest() {
+    assertThat(createAlgorithm().hasAllUniqueChars(reverseOrderedAllUniqueChars().concat("42")))
+        .isFalse();
+  }
+
+  @Test
+  default void randomOrderedCharsFailTest() {
+    assertThat(createAlgorithm().hasAllUniqueChars(randomOrderedAllUniqueChars().concat("?")))
+        .isFalse();
+  }
+
   default String orderedAllUniqueChars() {
     StringBuilder sb = new StringBuilder();
     for (int i = MIN_CHAR_VALUE; i < MAX_CHAR_VALUE; i++) {

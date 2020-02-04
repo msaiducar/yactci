@@ -17,6 +17,12 @@
             <artifactId>solution-api</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.github.java.yactci</groupId>
+            <artifactId>core-impl</artifactId>
+            <version>1.0.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>
