@@ -2,12 +2,11 @@ package org.github.java.yactci.coreimpl.math;
 
 import org.github.java.yactci.coreapi.assertion.NumberRequired;
 import org.github.java.yactci.coreapi.math.BitwiseOperation;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Comparator;
 import java.util.stream.IntStream;
 
-public class BitwiseOperator implements BitwiseOperation {
+public class ArrayBitMap implements BitwiseOperation {
   private static final int MIN_COUNT = 1;
   private static final int BYTE_TO_BIT = 8;
   private final int bitCount;
@@ -19,7 +18,7 @@ public class BitwiseOperator implements BitwiseOperation {
    *
    * @param bitCount capacity of BitwiseOperator
    */
-  private BitwiseOperator(int bitCount) {
+  private ArrayBitMap(int bitCount) {
     if (bitCount < MIN_COUNT) throw new IndexOutOfBoundsException();
 
     this.bitCount = bitCount;
@@ -32,18 +31,18 @@ public class BitwiseOperator implements BitwiseOperation {
    * @param count capacity of BitwiseOperator
    * @return threadsafe instance of BitwiseOperator
    */
-  public static BitwiseOperator of(int count) {
-    return new BitwiseOperator(count);
+  public static ArrayBitMap of(int count) {
+    return new ArrayBitMap(count);
   }
 
   @Override
-  public BitwiseOperator set(int index) {
+  public ArrayBitMap set(int index) {
     validateIndex(index);
     return set(getBitIndex(index));
   }
 
   @Override
-  public synchronized BitwiseOperator clear(int index) {
+  public synchronized ArrayBitMap clear(int index) {
     validateIndex(index);
     return clear(getBitIndex(index));
   }
@@ -54,7 +53,7 @@ public class BitwiseOperator implements BitwiseOperation {
   }
 
   @Override
-  public BitwiseOperator shiftLeft(final int count) {
+  public ArrayBitMap shiftLeft(final int count) {
     NumberRequired.nonNegative(count);
 
     // no need to shift, all bits are zero now
@@ -71,12 +70,9 @@ public class BitwiseOperator implements BitwiseOperation {
         .sorted(Comparator.reverseOrder())
         .forEach(
             index -> {
+              Index sourceIndex = getBitIndex(index);
               Index shiftIndex = leftShiftedBitIndex(index, count);
-              if (isSet(index)) {
-                set(shiftIndex);
-              } else {
-                clear(shiftIndex);
-              }
+              copyBit(sourceIndex, shiftIndex);
             });
 
     // fill zeros to the remaining
@@ -86,18 +82,29 @@ public class BitwiseOperator implements BitwiseOperation {
   }
 
   @Override
-  public BitwiseOperator shiftRight(int count) {
-    throw new NotImplementedException();
-  }
+  public ArrayBitMap shiftRight(final int count) {
+    NumberRequired.nonNegative(count);
 
-  @Override
-  public BitwiseOperation circularShiftLeft(int count) {
-    throw new NotImplementedException();
-  }
+    // no need to shift, all bits are zero now
+    if (count >= this.bitCount) {
+      clearAllBits();
+      return this;
+    }
 
-  @Override
-  public BitwiseOperation circularShiftRight(int count) {
-    throw new NotImplementedException();
+    // shift all bits from count to length
+    IntStream.range(count, this.bitCount)
+        .boxed()
+        .forEach(
+            index -> {
+              Index sourceIndex = getBitIndex(index);
+              Index shiftIndex = rightShiftedBitIndex(index, count);
+              copyBit(sourceIndex, shiftIndex);
+            });
+
+    // fill zeros to the remaining
+    IntStream.range(this.bitCount - count + 1, this.bitCount).boxed().forEach(this::clear);
+
+    return this;
   }
 
   @Override
@@ -216,24 +223,13 @@ public class BitwiseOperator implements BitwiseOperation {
     return (bitCount % BYTE_TO_BIT) > 0 ? (bitCount / BYTE_TO_BIT + 1) : (bitCount / BYTE_TO_BIT);
   }
 
-  /** Inner class to keep arrayIndex and flagIndex together during operations */
-  private class Index {
-    private final int arrayIndex;
-    private final int flagIndex;
-
-    private Index(int arrayIndex, int flagIndex) {
-      this.arrayIndex = arrayIndex;
-      this.flagIndex = flagIndex;
-    }
-  }
-
   /**
    * threadsafe bitwise set operation
    *
    * @param bitIndex bit index to be set
    * @return this
    */
-  private synchronized BitwiseOperator set(Index bitIndex) {
+  private synchronized ArrayBitMap set(Index bitIndex) {
     flags[bitIndex.arrayIndex] |= (byte) 1 << bitIndex.flagIndex;
     return this;
   }
@@ -244,7 +240,7 @@ public class BitwiseOperator implements BitwiseOperation {
    * @param bitIndex bit index to be set
    * @return this
    */
-  private synchronized BitwiseOperator clear(Index bitIndex) {
+  private synchronized ArrayBitMap clear(Index bitIndex) {
     flags[bitIndex.arrayIndex] &= ~(1 << bitIndex.flagIndex);
     return this;
   }
@@ -257,6 +253,37 @@ public class BitwiseOperator implements BitwiseOperation {
    */
   private synchronized boolean isSet(Index bitIndex) {
     return ((flags[bitIndex.arrayIndex] & (1 << bitIndex.flagIndex)) != 0);
+  }
+
+  /**
+   * assigns target bit with the same value of source bit
+   *
+   * @param source
+   * @param target
+   */
+  private synchronized void copyBit(Index source, Index target) {
+    if (isSet(source)) {
+      set(target);
+    } else {
+      clear(target);
+    }
+  }
+
+  /**
+   * swaps the given bits
+   *
+   * @param first
+   * @param second
+   */
+  private synchronized void swapBit(Index first, Index second) {
+    boolean swap = isSet(first);
+    copyBit(second, first);
+
+    if (swap) {
+      set(second);
+    } else {
+      clear(second);
+    }
   }
 
   /**
@@ -277,5 +304,28 @@ public class BitwiseOperator implements BitwiseOperation {
     if (count + index >= this.bitCount) throw new IndexOutOfBoundsException();
 
     return getBitIndex(index + count);
+  }
+
+  /**
+   * @throws IndexOutOfBoundsException if target bit is out of capacity
+   * @param index current index
+   * @param count how many times index right shifted
+   * @return target bitmap index
+   */
+  private Index rightShiftedBitIndex(int index, int count) {
+    if (count > index) throw new IndexOutOfBoundsException();
+
+    return getBitIndex(index - count);
+  }
+
+  /** Inner class to keep arrayIndex and flagIndex together during operations */
+  private class Index {
+    private final int arrayIndex;
+    private final int flagIndex;
+
+    private Index(int arrayIndex, int flagIndex) {
+      this.arrayIndex = arrayIndex;
+      this.flagIndex = flagIndex;
+    }
   }
 }
