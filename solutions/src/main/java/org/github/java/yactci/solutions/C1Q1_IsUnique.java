@@ -25,7 +25,6 @@ public class C1Q1_IsUnique implements C1Q1_IsUniqueAlgorithm {
 
     if (str.length() > UNIQUE_CHAR_COUNT) return false;
 
-    // boolean[] flags = new boolean[UNIQUE_CHAR_COUNT];
     ArrayBitMap bitMap = ArrayBitMap.of(UNIQUE_CHAR_COUNT);
 
     for (char c : str.toCharArray()) {
