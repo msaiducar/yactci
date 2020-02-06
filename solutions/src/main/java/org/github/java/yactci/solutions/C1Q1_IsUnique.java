@@ -15,7 +15,7 @@ import java.util.Objects;
 public class C1Q1_IsUnique implements C1Q1_IsUniqueAlgorithm {
 
   // 256-character extended ascii
-  private static final int UNIQUE_CHAR_COUNT = 256;
+  public static final int UNIQUE_CHAR_COUNT = 256;
 
   @Override
   @TimeComplexity(average = BigO.LINEAR)
