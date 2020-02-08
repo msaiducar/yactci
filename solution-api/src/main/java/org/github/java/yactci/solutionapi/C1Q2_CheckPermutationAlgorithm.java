@@ -36,7 +36,7 @@ public interface C1Q2_CheckPermutationAlgorithm {
    */
   @TimeComplexity(best = BigO.LINEAR, average = BigO.LINEAR, worst = BigO.LINEAR)
   @SpaceComplexity(best = BigO.LINEAR, average = BigO.LINEAR, worst = BigO.LINEAR)
-  default String shuffleString(String str) {
+  static String shuffleString(String str) {
 
     char[] arr = str.toCharArray();
 

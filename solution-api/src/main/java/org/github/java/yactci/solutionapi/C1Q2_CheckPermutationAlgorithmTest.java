@@ -49,7 +49,7 @@ public interface C1Q2_CheckPermutationAlgorithmTest<E extends C1Q2_CheckPermutat
     E permutationAlgorithm = createAlgorithm();
     assertThat(
             permutationAlgorithm.stringsArePermutation(
-                str, permutationAlgorithm.shuffleString(str)))
+                str, C1Q2_CheckPermutationAlgorithm.shuffleString(str)))
         .isTrue();
   }
 }
