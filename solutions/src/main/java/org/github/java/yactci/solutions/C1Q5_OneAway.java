@@ -56,7 +56,7 @@ public class C1Q5_OneAway implements C1Q5_OneAwayAlgorithm {
       if (first.charAt(j) != second.charAt(i)) {
         // first time or ?
         if (!inserted) {
-          // now on, should check first(i+1) == second(i)
+          // now on, should check if first(i+1) == second(i)
           j++;
           inserted = true;
         } else {
