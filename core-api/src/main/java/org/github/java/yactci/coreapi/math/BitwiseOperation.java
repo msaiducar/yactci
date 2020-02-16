@@ -1,5 +1,7 @@
 package org.github.java.yactci.coreapi.math;
 
+import java.util.stream.Stream;
+
 /**
  * An interface to provide bitwise operation with minimum space. Capacity should be declared when
  * operator initialized and can not be changed afterwards. Capacity can not be negative number or
@@ -83,6 +85,20 @@ public interface BitwiseOperation {
    * @return
    */
   BitwiseOperation setAllBits();
+
+  /**
+   * returns the indexes which are set in the bitmap as a stream todo: add unit tests
+   *
+   * @return set indexes in bitmap
+   */
+  Stream<Integer> setIndexes();
+
+  /**
+   * returns the indexes which are clear in the bitmap as a stream todo: add unit tests
+   *
+   * @return clear indexes in bitmap
+   */
+  Stream<Integer> clearIndexes();
 
   /**
    * @throws IndexOutOfBoundsException

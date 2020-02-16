@@ -5,6 +5,7 @@ import org.github.java.yactci.coreapi.math.BitwiseOperation;
 
 import java.util.Comparator;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * fixed size byte array based thread safe implementation of {@code BitwiseOperation } interface.
@@ -160,6 +161,16 @@ public class ArrayBitMap implements BitwiseOperation {
     int index = calculateArrayLength(this.bitCount);
     IntStream.range(0, index).boxed().forEach(i -> this.flags[i] = (byte) 0xFF);
     return this;
+  }
+
+  @Override
+  public Stream<Integer> setIndexes() {
+    return IntStream.range(0, bitCount).boxed().filter(this::isSet);
+  }
+
+  @Override
+  public Stream<Integer> clearIndexes() {
+    return IntStream.range(0, bitCount).boxed().filter(this::isClear);
   }
 
   @Override
